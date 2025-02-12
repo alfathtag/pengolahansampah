@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Sampah Anorganik</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f4f4f4, #d6e6f2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: scale(1.05);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        p {
+            margin: 0 0 15px;
+            color: #555;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            transition: border-color 0.3s ease;
+        }
+        input[type="number"]:focus {
+            border-color: #007bff;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 30px;
+            font-size: 1.5em;
+            color: #333;
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .fade-in {
+            display: block;
+            opacity: 1;
+        }
+        .buy-button {
+            margin-top: 20px;
+            background-color: #28a745;
+        }
+        .buy-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Kalkulator Sampah Anorganik</h1>
+    <p>Masukkan berat sampah anorganik (kg):</p>
+    <input type="number" id="weightInput" placeholder="Berat sampah dalam kilogram" min="0" step="0.01">
+    <button onclick="calculatePrice()">Hitung Harga</button>
+
+    <div class="result" id="result"></div>
+    <button class="buy-button" id="buyButton" style="display:none;" onclick="buyNow()">Beli</button>
+</div>
+
+<script>
+    let totalPrice;
+
+    function calculatePrice() {
+        const weight = document.getElementById("weightInput").value;
+        const pricePerKg = 6000; // Harga per kilogram Rp 6.000
+        const resultDiv = document.getElementById("result");
+        const buyButton = document.getElementById("buyButton");
+
+        if (weight > 0) {
+            totalPrice = weight * pricePerKg;
+            resultDiv.innerHTML = `Dari ${weight} kg sampah anorganik, Anda akan mendapatkan Rp ${totalPrice.toLocaleString()}.`;
+            resultDiv.classList.add("fade-in");
+            buyButton.style.display = "block"; // Tampilkan tombol beli
+        } else {
+            resultDiv.innerHTML = "Masukkan berat sampah yang valid.";
+            resultDiv.classList.add("fade-in");
+            buyButton.style.display = "none"; // Sembunyikan tombol beli
+        }
+    }
+
+    function buyNow() {
+        const weight = document.getElementById("weightInput").value;
+        const message = `Saya ingin membeli sampah anorganik seberat ${weight} kg dengan total harga Rp ${totalPrice.toLocaleString()}.`;
+        const phoneNumber = "6282386634117"; // Nomor WhatsApp dengan format internasional (ganti 0 di awal nomor dengan 62)
+        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    }
+</script>
+
+</body>
+</html>
