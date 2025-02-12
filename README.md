@@ -1,0 +1,2 @@
+# pengolahansampah
+Informatika tugas
